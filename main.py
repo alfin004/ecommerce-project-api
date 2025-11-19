@@ -1,6 +1,7 @@
-from typing import Dict, List
+rom typing import Dict, List
 
 from fastapi import FastAPI, HTTPException, Query
+from fastapi.middleware.cors import CORSMiddleware
 
 from models import (
     Item,
@@ -10,11 +11,22 @@ from models import (
 )
 from utils import fetch_sheet_rows
 
-
 app = FastAPI(
     title="Google Sheet Shop API",
     description="Reads Google Sheets for customers and items and exposes them as JSON.",
     version="2.0.0",
+)
+
+origins = [
+    "http://13.233.199.188",
+]
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=origins,
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
 )
 
 # TODO: Replace this with your actual Google Sheet URL for customers
