@@ -1,4 +1,4 @@
-rom typing import Dict, List
+from typing import Dict, List
 
 from fastapi import FastAPI, HTTPException, Query
 from fastapi.middleware.cors import CORSMiddleware
@@ -18,7 +18,10 @@ app = FastAPI(
 )
 
 origins = [
-    "http://13.233.199.188",
+    "https://example.com",
+    "https://www.example.com",
+    "http://example.com",
+    "http://localhost:3000",
 ]
 
 app.add_middleware(
@@ -28,6 +31,7 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
+
 
 # TODO: Replace this with your actual Google Sheet URL for customers
 CUSTOMERS_SHEET_LINK = "https://docs.google.com/spreadsheets/d/1TQP-Nt4P3zRHjuFNDdemP_pWQXp4LbazwppD-KKg5Io/edit?gid=0"
