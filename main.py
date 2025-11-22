@@ -55,6 +55,11 @@ def parse_float(value: str, default: float = 0.0) -> float:
         return default
     return float(value)
 
+def getimage_thumbnail(value:str) -> str:
+    if value is None or value.strip() == "":
+        return "https://cdn.pixabay.com/photo/2015/12/22/04/00/photo-1103594_1280.png"
+    return value
+
 
 def parse_tags(value: str):
     if not value:
@@ -146,7 +151,7 @@ def get_items_from_sheet(sheet_url: str = Query(..., description="Google Sheet U
                 Category=category,
                 Stock=parse_bool(row.get("Stock")),
                 tags=parse_tags(row.get("tags")),
-                image1=(row.get("image1") or "").strip(),
+                image1=getimage_thumbnail((row.get("image1") or "").strip()),
                 image2=(row.get("image2") or "").strip(),
                 video=(row.get("video") or "").strip(),
             )
@@ -206,7 +211,7 @@ def get_items_for_shop(shop_username: str = Query(..., description="ShopUsername
                 Category=category,
                 Stock=parse_bool(row.get("Stock")),
                 tags=parse_tags(row.get("tags")),
-                image1=(row.get("image1") or "").strip(),
+                image1=getimage_thumbnail((row.get("image1") or "").strip()),
                 image2=(row.get("image2") or "").strip(),
                 video=(row.get("video") or "").strip(),
             )
