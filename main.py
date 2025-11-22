@@ -116,7 +116,7 @@ def update_customers():
         new_cache[shop_username] = customer
 
     customers_cache = new_cache
-    return {"message": "Customers updated 2", "count": len(customers_cache)}
+    return {"message": "Customers updated", "count": len(customers_cache)}
 
 
 @app.get("/items", response_model=ItemsResponse)
@@ -175,14 +175,14 @@ def get_items_for_shop(shop_username: str = Query(..., description="ShopUsername
     # Ensure customers_cache is populated
     if not customers_cache:
         # Optionally auto-refresh; for now, require explicit update
-        raise HTTPException(status_code=400, detail="Customer cache is empty. Call /updateCustomers first.")
+        raise HTTPException(status_code=400, detail="Customer cache is empty.")
 
     customer = customers_cache.get(shop_username)
     if not customer:
         raise HTTPException(status_code=404, detail=f"No customer found for ShopUsername '{shop_username}'")
 
     if not customer.SheetLink:
-        raise HTTPException(status_code=400, detail=f"No SheetLink configured for ShopUsername '{shop_username}'")
+        raise HTTPException(status_code=400, detail=f"No items configured for ShopUsername '{shop_username}'")
 
     # Fetch items using the customer's sheet link
     try:
