@@ -107,6 +107,7 @@ def update_customers():
                 Description=(row.get("Description") or "").strip(),
                 SheetLink=sheet_link,
                 SubscriptionDate=(row.get("SubscriptionDate") or "").strip(),
+                Modes = (row.get("Modes").split(","))
             )
         except Exception as e:
             # Skip any bad row instead of failing everything
@@ -233,4 +234,5 @@ def get_items_for_shop(shop_username: str = Query(..., description="ShopUsername
         ConvenienceFee=customer.ConvenienceFee,
         Description=customer.Description or "",
         Items=items,
+        Modes = customer.Modes
     )

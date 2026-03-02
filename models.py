@@ -33,6 +33,7 @@ class BusinessCustomer(BaseModel):
     Description: Optional[str] = ""
     SheetLink: Optional[str] = ""
     SubscriptionDate: Optional[str] = ""
+    Modes: List[str]
 
 
 class BusinessWithItemsResponse(BaseModel):
@@ -46,3 +47,4 @@ class BusinessWithItemsResponse(BaseModel):
     ConvenienceFee: float
     Description: Optional[str] = ""
     Items: List[Item]
+    Modes: List[str]
